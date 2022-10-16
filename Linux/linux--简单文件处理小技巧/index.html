@@ -19,10 +19,13 @@
     <link rel="dns-prefetch" href="https://benben-chan.gitHub.io">
     <!--SEO-->
 
-<meta name="keywords" content="杂记,hexo" />
+<meta name="keywords" content="linux,shell" />
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any ..." />
+<meta name="description" content="linux–简单文件处理小技巧给路径下面所有.xls文件统计行数到一个count文件
+1wc -l *.xls* &gt;&gt;count.txt
+若是在主路径下有各分路径，则可以这样
+1wc..." />
 
 
 <meta name="robots" content="all" />
@@ -33,7 +36,7 @@
 
 <title>
     
-    Hello World |
+    linux--简单文件处理小技巧 |
     
     陈笨笨
 </title>
@@ -142,16 +145,16 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="Hello World">
+        <h1 id="linux--简单文件处理小技巧">
             
-            Hello World
+            linux--简单文件处理小技巧
             
         </h1>
         <div class="post-meta">
     
     <span class="categories-meta fa-wrap">
         <i class="fa fa-folder-open-o"></i>
-        <a class="category-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
+        <a class="category-link" href="/categories/Linux/">Linux</a>
     </span>
     
     
@@ -159,7 +162,7 @@
         <i class="fa fa-tags"></i>
         <span class="tags-meta">
             
-            <a class="tag-none-link" href="/tags/hexo/" rel="tag">hexo</a> <a class="tag-none-link" href="/tags/petty/" rel="tag">杂记</a>
+            <a class="tag-none-link" href="/tags/linux/" rel="tag">linux</a> <a class="tag-none-link" href="/tags/shell/" rel="tag">shell</a>
             
         </span>
     </span>
@@ -169,35 +172,22 @@
     <span class="fa-wrap">
         <i class="fa fa-clock-o"></i>
         <span class="date-meta">
-            1997/03/03</span>
+            2022/10/16</span>
     </span>
     
     
 </div>
         
         
-        <p class="fa fa-exclamation-triangle warning">
-            本文于<strong>
-                9358</strong>
-            天之前发表，文中内容可能已经过时。
-        </p>
-        
     </div>
     
     <div class="post-body post-content">
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></tbody></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></tbody></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></tbody></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></tbody></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+        <h1 id="linux–简单文件处理小技巧"><a href="#linux–简单文件处理小技巧" class="headerlink" title="linux–简单文件处理小技巧"></a>linux–简单文件处理小技巧</h1><p>给路径下面所有.xls文件统计行数到一个count文件</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wc -l *.xls* &gt;&gt;count.txt</span><br></pre></td></tr></tbody></table></figure>
+<p>若是在主路径下有各分路径，则可以这样</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wc -l */*.xls &gt;&gt;count.txt</span><br></pre></td></tr></tbody></table></figure>
+<p>将压缩文件解压至指定路径</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip&nbsp; -d /targetDir targetFile.zip</span><br></pre></td></tr></tbody></table></figure>
 
     </div>
     
@@ -216,12 +206,12 @@
 </article>
 <div class="article-nav prev-next-wrap clearfix">
     
-    <a href="/Shell/Python/data-analysis/shell%E3%80%81R%E5%92%8Cpython%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%BC%A0%E5%8F%82%E6%B1%87%E6%80%BB/" class="pre-post btn btn-default" title='shell、R和python的命令行传参汇总'>
-        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-        <span class="hidden-xs">
-            shell、R和python的命令行传参汇总</span>
-    </a>
     
+    <a href="/Python/%E6%AF%94Selenium%E5%A5%BD%E7%94%A8%EF%BC%9FPython%E4%BD%BF%E7%94%A8playwright%E8%8E%B7%E5%8F%96S%E7%AB%99%E5%9C%A8%E7%BA%BF%E6%B8%B8%E6%88%8F%E6%8E%92%E5%90%8D/" class="next-post btn btn-default" title='比Selenium好用？Python使用playwright获取S站在线游戏排名'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            比Selenium好用？Python使用playwright获取S站在线游戏排名</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
     
 </div>
 
@@ -254,7 +244,7 @@
             文章目录
         </h3>
         
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#linux%E2%80%93%E7%AE%80%E5%8D%95%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="toc-text">linux–简单文件处理小技巧</span></a></li></ol>
         
     </div>
 </aside>
