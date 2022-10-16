@@ -4,6 +4,62 @@
   
     
     <entry>
+      <title>linux--简单文件处理小技巧</title>
+      <link href="/Linux/Shell/linux--%E7%AE%80%E5%8D%95%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+      <url>/Linux/Shell/linux--%E7%AE%80%E5%8D%95%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86%E5%B0%8F%E6%8A%80%E5%B7%A7/</url>
+      
+        <content type="html"><![CDATA[<h1 id="linux–简单文件处理小技巧"><a href="#linux–简单文件处理小技巧" class="headerlink" title="linux–简单文件处理小技巧"></a>linux–简单文件处理小技巧</h1><p>给路径下面所有.xls文件统计行数到一个count文件</p><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wc -l *.xls* &gt;&gt;count.txt</span><br></pre></td></tr></tbody></table></figure><p>若是在主路径下有各分路径，则可以这样</p><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wc -l */*.xls &gt;&gt;count.txt</span><br></pre></td></tr></tbody></table></figure><p>将压缩文件解压至指定路径</p><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip&nbsp; -d /targetDir targetFile.zip</span><br></pre></td></tr></tbody></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+          <category> Shell </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> shell </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>R语言--常用但总记不住的数据处理小技巧</title>
+      <link href="/data-analysis/R%E8%AF%AD%E8%A8%80-%E5%B8%B8%E7%94%A8%E4%BD%86%E6%80%BB%E8%AE%B0%E4%B8%8D%E4%BD%8F%E7%9A%84%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+      <url>/data-analysis/R%E8%AF%AD%E8%A8%80-%E5%B8%B8%E7%94%A8%E4%BD%86%E6%80%BB%E8%AE%B0%E4%B8%8D%E4%BD%8F%E7%9A%84%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%B0%8F%E6%8A%80%E5%B7%A7/</url>
+      
+        <content type="html"><![CDATA[<h2 id="提取列表中包含特定字符的元素"><a href="#提取列表中包含特定字符的元素" class="headerlink" title="提取列表中包含特定字符的元素"></a>提取列表中包含特定字符的元素</h2><p>DE.pattern = your_list[grep(pattern = “pattern”,x = names(your_list),value = T)]</p><h2 id="批量读取列表内文件名字"><a href="#批量读取列表内文件名字" class="headerlink" title="批量读取列表内文件名字"></a>批量读取列表内文件名字</h2><p>library(pipeR)</p><p>library(rlist)</p><p>test = list.files(path = “E:/Desktop/“,pattern = “*” )</p><p>write.table(test,”E:/Desktop/readme.xls”,sep = “\t”)</p><h3 id="读取Excel中所有sheet"><a href="#读取Excel中所有sheet" class="headerlink" title="读取Excel中所有sheet"></a>读取Excel中所有sheet</h3><p>library(readxl)</p><p>excel_path &lt;- c(“your path/附件1植物激素MRM定量分析结果-1读取.xlsx”)</p><p>data = list()</p><p>for (i in 1:length(excel_sheets(excel_path))) {</p><p>&nbsp; data[[i]] = read_xlsx(path = excel_path,sheet = i)</p><p>}</p><p>names(data) = excel_sheets(excel_path)</p><h3 id="替换掉数据中的inf-x2F-NA-x2F-0"><a href="#替换掉数据中的inf-x2F-NA-x2F-0" class="headerlink" title="替换掉数据中的inf/NA/0"></a>替换掉数据中的inf/NA/0</h3><p>yourdata[yourdata==Inf]&lt;-NA</p><h3 id="绘制热图时去掉所有值行为0的行"><a href="#绘制热图时去掉所有值行为0的行" class="headerlink" title="绘制热图时去掉所有值行为0的行"></a>绘制热图时去掉所有值行为0的行</h3><p>data_figure = data_figure[which(rowSums(data_figure)&gt;0),]</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据分析 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> R语言 </tag>
+            
+            <tag> data-analysis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>vue_使用v-for遍历对象属性</title>
       <link href="/Linux/vue-%E4%BD%BF%E7%94%A8v-for%E9%81%8D%E5%8E%86%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7/"/>
       <url>/Linux/vue-%E4%BD%BF%E7%94%A8v-for%E9%81%8D%E5%8E%86%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7/</url>

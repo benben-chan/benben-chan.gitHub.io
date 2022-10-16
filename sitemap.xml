@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://benben-chan.github.io/Linux/Shell/linux--%E7%AE%80%E5%8D%95%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86%E5%B0%8F%E6%8A%80%E5%B7%A7/</loc>
+    
+    <lastmod>2022-10-16</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://benben-chan.github.io/data-analysis/R%E8%AF%AD%E8%A8%80-%E5%B8%B8%E7%94%A8%E4%BD%86%E6%80%BB%E8%AE%B0%E4%B8%8D%E4%BD%8F%E7%9A%84%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%B0%8F%E6%8A%80%E5%B7%A7/</loc>
+    
+    <lastmod>2022-10-16</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://benben-chan.github.io/Linux/vue-%E4%BD%BF%E7%94%A8v-for%E9%81%8D%E5%8E%86%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7/</loc>
     
     <lastmod>2022-10-16</lastmod>
@@ -129,6 +147,34 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://benben-chan.github.io/tags/R%E8%AF%AD%E8%A8%80/</loc>
+    <lastmod>2022-10-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://benben-chan.github.io/tags/data-analysis/</loc>
+    <lastmod>2022-10-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://benben-chan.github.io/tags/linux/</loc>
+    <lastmod>2022-10-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://benben-chan.github.io/tags/shell/</loc>
+    <lastmod>2022-10-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
@@ -154,6 +200,20 @@
   
   <url>
     <loc>https://benben-chan.github.io/categories/petty/</loc>
+    <lastmod>2022-10-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://benben-chan.github.io/categories/data-analysis/</loc>
+    <lastmod>2022-10-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://benben-chan.github.io/categories/Linux/Shell/</loc>
     <lastmod>2022-10-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
