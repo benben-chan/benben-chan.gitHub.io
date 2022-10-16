@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>比Selenium好用？Python使用playwright获取S站在线游戏排名</title>
+      <link href="/Python/%E6%AF%94Selenium%E5%A5%BD%E7%94%A8%EF%BC%9FPython%E4%BD%BF%E7%94%A8playwright%E8%8E%B7%E5%8F%96S%E7%AB%99%E5%9C%A8%E7%BA%BF%E6%B8%B8%E6%88%8F%E6%8E%92%E5%90%8D/"/>
+      <url>/Python/%E6%AF%94Selenium%E5%A5%BD%E7%94%A8%EF%BC%9FPython%E4%BD%BF%E7%94%A8playwright%E8%8E%B7%E5%8F%96S%E7%AB%99%E5%9C%A8%E7%BA%BF%E6%B8%B8%E6%88%8F%E6%8E%92%E5%90%8D/</url>
+      
+        <content type="html"><![CDATA[<h1 id="比Selenium好用？Python使用playwright获取S站在线游戏排名"><a href="#比Selenium好用？Python使用playwright获取S站在线游戏排名" class="headerlink" title="比Selenium好用？Python使用playwright获取S站在线游戏排名"></a>比Selenium好用？Python使用playwright获取S站在线游戏排名</h1><p>在之前的文章中爬取了S的热销商品，也说明了因为Cloudflare的浏览器验证导致SDB无法爬取，连selenium也不行。当时我就放弃了。<br>但是前一段时间，有一个伙计给我讲：【用playwright啊！】<br>playwright支持多种语法，相比于selenium的Http协议，playwright的Websocket获取浏览器情况会更好一点。<br>Playwright的使用<br>安装：需要python3.7+</p><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> pip install --upgrade pip  </span><br><span class="line"><span class="number">2.</span> pip install playwright  </span><br><span class="line"><span class="number">3.</span> playwright install</span><br></pre></td></tr></tbody></table></figure><p>一次安装，Playwright就可以通过开发者工具与你安装的浏览器 (chromiun, firefox and webkit)进行交互，不像selenium下载对应浏览器版本的Driver了。</p><p>本次只讲一下最基本的页面获取，其他的功能各位自行查看文档吧：</p><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> <span class="keyword">from</span> playwright.sync_api <span class="keyword">import</span> sync_playwright  </span><br><span class="line"><span class="number">2.</span>        </span><br><span class="line"><span class="number">3.</span> <span class="keyword">with</span> sync_playwright() <span class="keyword">as</span> p:  </span><br><span class="line"><span class="number">4.</span>     browser = p.webkit.launch()  </span><br><span class="line"><span class="number">5.</span>     page = browser.new_page()  </span><br><span class="line"><span class="number">6.</span>     page.goto(<span class="string">"http://whatsmyuseragent.org/"</span>)  </span><br><span class="line"><span class="number">7.</span>     page.wait_for_load_state(<span class="string">'networkidle'</span>)  </span><br><span class="line"><span class="number">8.</span>     html = page.content()  </span><br><span class="line"><span class="number">9.</span>     browser.close()</span><br></pre></td></tr></tbody></table></figure><p>html就是已经加载好的正文的内容，获取到的东西就可以交给选择器去处理跟筛选了。<br>实例:是一个第三方的S的数据库，在线人数，游戏价格等等都能查询的到。<br>在线人数，在线排名都有展示出来。现在开始获取数据。</p><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> <span class="keyword">with</span> sync_playwright() <span class="keyword">as</span> p:  </span><br><span class="line"><span class="number">2.</span>     <span class="keyword">try</span>:  </span><br><span class="line"><span class="number">3.</span>         browser = p.chromium.launch(headless=<span class="literal">False</span>)  </span><br><span class="line"><span class="number">4.</span>         page = browser.new_page()  </span><br><span class="line"><span class="number">5.</span>         page.goto(<span class="string">'https://steamdb.info/graph/'</span>)  </span><br><span class="line"><span class="number">6.</span>         page.wait_for_load_state(<span class="string">'networkidle'</span>)  </span><br><span class="line"><span class="number">7.</span>         html = page.content()  </span><br><span class="line"><span class="number">8.</span>         browser.close()  </span><br><span class="line"><span class="number">9.</span>         <span class="keyword">return</span> html  </span><br><span class="line"><span class="number">10.</span>     <span class="keyword">except</span> Exception <span class="keyword">as</span> e:  </span><br><span class="line"><span class="number">11.</span>         <span class="built_in">print</span>(e)</span><br></pre></td></tr></tbody></table></figure><p>不知道为什么开启无头就是通过不了。这样的话本页的html内容就获取下来了：<br>接下来用选择器进行内容解析：</p><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> sel = Selector(text=content)  </span><br><span class="line"><span class="number">2.</span> nodes = sel.css(<span class="string">'#table-apps .app'</span>)  </span><br><span class="line"><span class="number">3.</span> <span class="keyword">for</span> node <span class="keyword">in</span> nodes:  </span><br><span class="line"><span class="number">4.</span>     title = node.css(<span class="string">'td:nth-child(3) a::text'</span>).extract_first()  </span><br><span class="line"><span class="number">5.</span>     current = node.css(<span class="string">'td:nth-child(4)::text'</span>).extract_first()  </span><br><span class="line"><span class="number">6.</span>     peakToday = node.css(<span class="string">'td:nth-child(5)::text'</span>).extract_first()  </span><br><span class="line"><span class="number">7.</span>     allPeak = node.css(<span class="string">'td:nth-child(6)::text'</span>).extract_first()  </span><br><span class="line"><span class="number">8.</span>     <span class="built_in">print</span>(<span class="string">f"游戏：<span class="subst">{title}</span>,目前在线：<span class="subst">{current}</span>,今日最高在线：<span class="subst">{peakToday}</span>,历史最高在线：<span class="subst">{allPeak}</span>"</span>)</span><br></pre></td></tr></tbody></table></figure><p>Playwright的代理配置<br>Playwright配置代理其实很简单，要在浏览器配置那一行加上proxy参数就可以了：<br>browser = p.chromium.launch(headless=False,proxy=proxy)</p><p>代码整合</p><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> <span class="keyword">from</span> playwright.sync_api <span class="keyword">import</span> sync_playwright  </span><br><span class="line"><span class="number">2.</span> <span class="keyword">from</span> parsel <span class="keyword">import</span> Selector  </span><br><span class="line"><span class="number">3.</span>    </span><br><span class="line"><span class="number">4.</span> <span class="keyword">def</span> <span class="title function_">getSteaminfo</span>():  </span><br><span class="line"><span class="number">5.</span>    </span><br><span class="line"><span class="number">6.</span>     proxy = {  </span><br><span class="line"><span class="number">7.</span>         <span class="string">'server'</span>: <span class="string">""</span>,  </span><br><span class="line"><span class="number">8.</span>         <span class="string">'username'</span>: <span class="string">""</span>,  </span><br><span class="line"><span class="number">9.</span>         <span class="string">'password'</span>: <span class="string">''</span>  </span><br><span class="line"><span class="number">10.</span>     }  </span><br><span class="line"><span class="number">11.</span>    </span><br><span class="line"><span class="number">12.</span>     <span class="keyword">with</span> sync_playwright() <span class="keyword">as</span> p:  </span><br><span class="line"><span class="number">13.</span>         <span class="keyword">try</span>:  </span><br><span class="line"><span class="number">14.</span>             browser = p.chromium.launch(headless=<span class="literal">False</span>,proxy=proxy)  </span><br><span class="line"><span class="number">15.</span>             page = browser.new_page()  </span><br><span class="line"><span class="number">16.</span>             page.goto(<span class="string">'https://steamdb.info/graph/'</span>)  </span><br><span class="line"><span class="number">17.</span>             page.wait_for_load_state(<span class="string">'networkidle'</span>)  </span><br><span class="line"><span class="number">18.</span>             html = page.content()  </span><br><span class="line"><span class="number">19.</span>             browser.close()  </span><br><span class="line"><span class="number">20.</span>             <span class="keyword">return</span> html  </span><br><span class="line"><span class="number">21.</span>         <span class="keyword">except</span> Exception <span class="keyword">as</span> e:  </span><br><span class="line"><span class="number">22.</span>             <span class="built_in">print</span>(e)  </span><br><span class="line"><span class="number">23.</span>    </span><br><span class="line"><span class="number">24.</span> <span class="keyword">def</span> <span class="title function_">start</span>():  </span><br><span class="line"><span class="number">25.</span>     content = getSteaminfo()  </span><br><span class="line"><span class="number">26.</span>     sel = Selector(text=content)  </span><br><span class="line"><span class="number">27.</span>     nodes = sel.css(<span class="string">'#table-apps .app'</span>)  </span><br><span class="line"><span class="number">28.</span>     <span class="keyword">for</span> node <span class="keyword">in</span> nodes:  </span><br><span class="line"><span class="number">29.</span>         title = node.css(<span class="string">'td:nth-child(3) a::text'</span>).extract_first()  </span><br><span class="line"><span class="number">30.</span>         current = node.css(<span class="string">'td:nth-child(4)::text'</span>).extract_first()  </span><br><span class="line"><span class="number">31.</span>         peakToday = node.css(<span class="string">'td:nth-child(5)::text'</span>).extract_first()  </span><br><span class="line"><span class="number">32.</span>         allPeak = node.css(<span class="string">'td:nth-child(6)::text'</span>).extract_first()  </span><br><span class="line"><span class="number">33.</span>         <span class="built_in">print</span>(<span class="string">f"游戏：<span class="subst">{title}</span>,目前在线：<span class="subst">{current}</span>,今日最高在线：<span class="subst">{peakToday}</span>,历史最高在线：<span class="subst">{allPeak}</span>"</span>)  </span><br><span class="line"><span class="number">34.</span>    </span><br><span class="line"><span class="number">35.</span> <span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:  </span><br><span class="line"><span class="number">36.</span>     start()</span><br></pre></td></tr></tbody></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> playwright </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello 陈笨笨</title>
+      <link href="/%E9%9A%8F%E7%AC%94/Hello-%E9%99%88%E7%AC%A8%E7%AC%A8/"/>
+      <url>/%E9%9A%8F%E7%AC%94/Hello-%E9%99%88%E7%AC%A8%E7%AC%A8/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Hello-陈笨笨"><a href="#Hello-陈笨笨" class="headerlink" title="Hello 陈笨笨"></a>Hello 陈笨笨</h1><p>陈笨笨是我，这是我发神经之地，偶尔记录我的一些学习和刷题的记录……</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 杂记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/%E9%9A%8F%E7%AC%94/hello-world/"/>
+      <url>/%E9%9A%8F%E7%AC%94/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></tbody></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></tbody></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></tbody></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></tbody></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 杂记 </tag>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>

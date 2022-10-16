@@ -1,0 +1,296 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="陈笨笨">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.3.0">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="https://benben-chan.gitHub.io">
+    <!--SEO-->
+
+<meta name="keywords" content="Python,playwright" />
+
+
+<meta name="description" content="比Selenium好用？Python使用playwright获取S站在线游戏排名在之前的文章中爬取了S的热销商品，也说明了因为Cloudflare的浏览器验证导致SDB无法爬取，连seleniu..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    比Selenium好用？Python使用playwright获取S站在线游戏排名 |
+    
+    陈笨笨
+</title>
+
+<link rel="alternate" href="/atom.xml" title="陈笨笨" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 5.4.2">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    https://hexo-theme-snippet-1251680922.cos.ap-beijing.myqcloud.com/img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='benbenchan'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://benben-chan.gitHub.io">
+                        陈笨笨</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/前端/"><i class="fa "></i>
+                                前端</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/后端/"><i class="fa "></i>
+                                后端</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/工具/"><i class="fa "></i>
+                                工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="比Selenium好用？Python使用playwright获取S站在线游戏排名">
+            
+            比Selenium好用？Python使用playwright获取S站在线游戏排名
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/Python/">Python</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/Python/" rel="tag">Python</a> <a class="tag-none-link" href="/tags/playwright/" rel="tag">playwright</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2022/10/16</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h1 id="比Selenium好用？Python使用playwright获取S站在线游戏排名"><a href="#比Selenium好用？Python使用playwright获取S站在线游戏排名" class="headerlink" title="比Selenium好用？Python使用playwright获取S站在线游戏排名"></a>比Selenium好用？Python使用playwright获取S站在线游戏排名</h1><p>在之前的文章中爬取了S的热销商品，也说明了因为Cloudflare的浏览器验证导致SDB无法爬取，连selenium也不行。当时我就放弃了。<br>但是前一段时间，有一个伙计给我讲：【用playwright啊！】<br>playwright支持多种语法，相比于selenium的Http协议，playwright的Websocket获取浏览器情况会更好一点。<br>Playwright的使用<br>安装：需要python3.7+</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> pip install --upgrade pip  </span><br><span class="line"><span class="number">2.</span> pip install playwright  </span><br><span class="line"><span class="number">3.</span> playwright install</span><br></pre></td></tr></tbody></table></figure>
+<p>一次安装，Playwright就可以通过开发者工具与你安装的浏览器 (chromiun, firefox and webkit)进行交互，不像selenium下载对应浏览器版本的Driver了。</p>
+<p>本次只讲一下最基本的页面获取，其他的功能各位自行查看文档吧：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> <span class="keyword">from</span> playwright.sync_api <span class="keyword">import</span> sync_playwright  </span><br><span class="line"><span class="number">2.</span>        </span><br><span class="line"><span class="number">3.</span> <span class="keyword">with</span> sync_playwright() <span class="keyword">as</span> p:  </span><br><span class="line"><span class="number">4.</span>     browser = p.webkit.launch()  </span><br><span class="line"><span class="number">5.</span>     page = browser.new_page()  </span><br><span class="line"><span class="number">6.</span>     page.goto(<span class="string">"http://whatsmyuseragent.org/"</span>)  </span><br><span class="line"><span class="number">7.</span>     page.wait_for_load_state(<span class="string">'networkidle'</span>)  </span><br><span class="line"><span class="number">8.</span>     html = page.content()  </span><br><span class="line"><span class="number">9.</span>     browser.close()</span><br></pre></td></tr></tbody></table></figure>
+<p>html就是已经加载好的正文的内容，获取到的东西就可以交给选择器去处理跟筛选了。<br>实例:是一个第三方的S的数据库，在线人数，游戏价格等等都能查询的到。<br>在线人数，在线排名都有展示出来。现在开始获取数据。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> <span class="keyword">with</span> sync_playwright() <span class="keyword">as</span> p:  </span><br><span class="line"><span class="number">2.</span>     <span class="keyword">try</span>:  </span><br><span class="line"><span class="number">3.</span>         browser = p.chromium.launch(headless=<span class="literal">False</span>)  </span><br><span class="line"><span class="number">4.</span>         page = browser.new_page()  </span><br><span class="line"><span class="number">5.</span>         page.goto(<span class="string">'https://steamdb.info/graph/'</span>)  </span><br><span class="line"><span class="number">6.</span>         page.wait_for_load_state(<span class="string">'networkidle'</span>)  </span><br><span class="line"><span class="number">7.</span>         html = page.content()  </span><br><span class="line"><span class="number">8.</span>         browser.close()  </span><br><span class="line"><span class="number">9.</span>         <span class="keyword">return</span> html  </span><br><span class="line"><span class="number">10.</span>     <span class="keyword">except</span> Exception <span class="keyword">as</span> e:  </span><br><span class="line"><span class="number">11.</span>         <span class="built_in">print</span>(e)</span><br></pre></td></tr></tbody></table></figure>
+<p>不知道为什么开启无头就是通过不了。这样的话本页的html内容就获取下来了：<br>接下来用选择器进行内容解析：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> sel = Selector(text=content)  </span><br><span class="line"><span class="number">2.</span> nodes = sel.css(<span class="string">'#table-apps .app'</span>)  </span><br><span class="line"><span class="number">3.</span> <span class="keyword">for</span> node <span class="keyword">in</span> nodes:  </span><br><span class="line"><span class="number">4.</span>     title = node.css(<span class="string">'td:nth-child(3) a::text'</span>).extract_first()  </span><br><span class="line"><span class="number">5.</span>     current = node.css(<span class="string">'td:nth-child(4)::text'</span>).extract_first()  </span><br><span class="line"><span class="number">6.</span>     peakToday = node.css(<span class="string">'td:nth-child(5)::text'</span>).extract_first()  </span><br><span class="line"><span class="number">7.</span>     allPeak = node.css(<span class="string">'td:nth-child(6)::text'</span>).extract_first()  </span><br><span class="line"><span class="number">8.</span>     <span class="built_in">print</span>(<span class="string">f"游戏：<span class="subst">{title}</span>,目前在线：<span class="subst">{current}</span>,今日最高在线：<span class="subst">{peakToday}</span>,历史最高在线：<span class="subst">{allPeak}</span>"</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p>Playwright的代理配置<br>Playwright配置代理其实很简单，要在浏览器配置那一行加上proxy参数就可以了：<br>browser = p.chromium.launch(headless=False,proxy=proxy)</p>
+<p>代码整合</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> <span class="keyword">from</span> playwright.sync_api <span class="keyword">import</span> sync_playwright  </span><br><span class="line"><span class="number">2.</span> <span class="keyword">from</span> parsel <span class="keyword">import</span> Selector  </span><br><span class="line"><span class="number">3.</span>    </span><br><span class="line"><span class="number">4.</span> <span class="keyword">def</span> <span class="title function_">getSteaminfo</span>():  </span><br><span class="line"><span class="number">5.</span>    </span><br><span class="line"><span class="number">6.</span>     proxy = {  </span><br><span class="line"><span class="number">7.</span>         <span class="string">'server'</span>: <span class="string">""</span>,  </span><br><span class="line"><span class="number">8.</span>         <span class="string">'username'</span>: <span class="string">""</span>,  </span><br><span class="line"><span class="number">9.</span>         <span class="string">'password'</span>: <span class="string">''</span>  </span><br><span class="line"><span class="number">10.</span>     }  </span><br><span class="line"><span class="number">11.</span>    </span><br><span class="line"><span class="number">12.</span>     <span class="keyword">with</span> sync_playwright() <span class="keyword">as</span> p:  </span><br><span class="line"><span class="number">13.</span>         <span class="keyword">try</span>:  </span><br><span class="line"><span class="number">14.</span>             browser = p.chromium.launch(headless=<span class="literal">False</span>,proxy=proxy)  </span><br><span class="line"><span class="number">15.</span>             page = browser.new_page()  </span><br><span class="line"><span class="number">16.</span>             page.goto(<span class="string">'https://steamdb.info/graph/'</span>)  </span><br><span class="line"><span class="number">17.</span>             page.wait_for_load_state(<span class="string">'networkidle'</span>)  </span><br><span class="line"><span class="number">18.</span>             html = page.content()  </span><br><span class="line"><span class="number">19.</span>             browser.close()  </span><br><span class="line"><span class="number">20.</span>             <span class="keyword">return</span> html  </span><br><span class="line"><span class="number">21.</span>         <span class="keyword">except</span> Exception <span class="keyword">as</span> e:  </span><br><span class="line"><span class="number">22.</span>             <span class="built_in">print</span>(e)  </span><br><span class="line"><span class="number">23.</span>    </span><br><span class="line"><span class="number">24.</span> <span class="keyword">def</span> <span class="title function_">start</span>():  </span><br><span class="line"><span class="number">25.</span>     content = getSteaminfo()  </span><br><span class="line"><span class="number">26.</span>     sel = Selector(text=content)  </span><br><span class="line"><span class="number">27.</span>     nodes = sel.css(<span class="string">'#table-apps .app'</span>)  </span><br><span class="line"><span class="number">28.</span>     <span class="keyword">for</span> node <span class="keyword">in</span> nodes:  </span><br><span class="line"><span class="number">29.</span>         title = node.css(<span class="string">'td:nth-child(3) a::text'</span>).extract_first()  </span><br><span class="line"><span class="number">30.</span>         current = node.css(<span class="string">'td:nth-child(4)::text'</span>).extract_first()  </span><br><span class="line"><span class="number">31.</span>         peakToday = node.css(<span class="string">'td:nth-child(5)::text'</span>).extract_first()  </span><br><span class="line"><span class="number">32.</span>         allPeak = node.css(<span class="string">'td:nth-child(6)::text'</span>).extract_first()  </span><br><span class="line"><span class="number">33.</span>         <span class="built_in">print</span>(<span class="string">f"游戏：<span class="subst">{title}</span>,目前在线：<span class="subst">{current}</span>,今日最高在线：<span class="subst">{peakToday}</span>,历史最高在线：<span class="subst">{allPeak}</span>"</span>)  </span><br><span class="line"><span class="number">34.</span>    </span><br><span class="line"><span class="number">35.</span> <span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:  </span><br><span class="line"><span class="number">36.</span>     start()</span><br></pre></td></tr></tbody></table></figure>
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+    <a href="/%E9%9A%8F%E7%AC%94/Hello-%E9%99%88%E7%AC%A8%E7%AC%A8/" class="next-post btn btn-default" title='Hello 陈笨笨'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            Hello 陈笨笨</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+    
+<div class="utteranc">
+  
+  <script
+    src='https://utteranc.es/client.js'
+    repo='shenliyang/snippet-comment'
+    issue-term='pathname'
+    issue-number=''
+    theme='github-light'
+    label=''
+    crossorigin='anonymous'
+    async
+  ></script>
+</div>
+
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AF%94Selenium%E5%A5%BD%E7%94%A8%EF%BC%9FPython%E4%BD%BF%E7%94%A8playwright%E8%8E%B7%E5%8F%96S%E7%AB%99%E5%9C%A8%E7%BA%BF%E6%B8%B8%E6%88%8F%E6%8E%92%E5%90%8D"><span class="toc-text">比Selenium好用？Python使用playwright获取S站在线游戏排名</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>
